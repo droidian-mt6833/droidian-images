@@ -1,0 +1,14 @@
+# This file has been generated automatically by droidian-new-device
+
+# xiaomi evergreen
+xiaomi_evergreen:
+  type: image
+  arch: arm64
+  edition: phosh
+  variant: phone
+  apilevel: 30
+  use_internal_repository: false
+
+  packages:
+    - adaptation-droidian-evergreen
+    - adaptation-evergreen-configs
