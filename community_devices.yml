@@ -12,3 +12,15 @@ xiaomi_evergreen:
   packages:
     - adaptation-droidian-evergreen
     - adaptation-evergreen-configs
+
+xiaomi_evergreen-cuite:
+  type: image
+  arch: arm64
+  edition: cutie
+  variant: phone
+  apilevel: 30
+  use_internal_repository: false
+
+  packages:
+    - adaptation-droidian-evergreen
+    - adaptation-evergreen-configs
