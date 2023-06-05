@@ -77,6 +77,14 @@ jobs:
         run: |
           docker exec $CONTAINER_HASH /bin/sh -c 'cd /buildd/sources; DROIDIAN_VERSION="${{ env.DROIDIAN_VERSION }}" ./generate_device_recipe.py ${{ matrix.config.product }} ${{ matrix.config.arch }} ${{ matrix.config.edition }} ${{ matrix.config.variant }} ${{ matrix.config.apilevel }} && debos --disable-fakemachine generated/droidian.yaml'
 
+      - name: Repack rootfs
+        run: |
+          sudo apt update ; sudo apt install unzip p7zip-full -y
+          cd out/
+          if [[ -f $(ls | grep *phosh*) ]] ; then sudo unzip $(ls | grep *phosh*) -d tmp ; sudo 7z a -t7z -m0=lzma2 -mx=9 "$(ls | grep *phosh* | sed -r 's|.zip||')".7z ./tmp/* ; sudo rm -rf *.zip tmp/ ; fi
+          if [[ -f $(ls | grep *cutie*) ]] ; then sudo unzip $(ls | grep *cutie*) -d tmp ; sudo 7z a -t7z -m0=lzma2 -mx=9 "$(ls | grep *cutie* | sed -r 's|.zip||')".7z ./tmp/* ; sudo rm -rf *.zip tmp/ ; fi
+          cd -
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
